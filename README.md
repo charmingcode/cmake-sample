@@ -1,19 +1,19 @@
 # cmake-sample
 
-000-1 Kudu CMake
-
-
-1、最小Cmake
-build one bin
+## 1、最小Cmake build one bin
+  
+```cmake
   1 cmake_minimum_required(VERSION 2.8)
   2 project(SAMPLE1)
   3
   4 add_executable(sample1 test.cc)
+```
 
 
-2、build one lib 静态库 ,  one bin
+## 2、build one lib 静态库 ,  one bin
 
- 1 cmake_minimum_required(VERSION 2.8)
+```cmake
+  1 cmake_minimum_required(VERSION 2.8)
   2 project(SAMPLE2)
   3
   4 add_library(hello hello.cc)
@@ -21,9 +21,12 @@ build one bin
   6 add_executable(sample2 test.cc)
   7
   8 target_link_libraries(sample2 hello)
+```
 
 
-3、build one lib 动态库 ,  one bin
+## 3、build one lib 动态库 ,  one bin
+
+```cmake
   1 cmake_minimum_required(VERSION 2.8)
   2 project(SAMPLE2)
   3
@@ -31,9 +34,12 @@ build one bin
   5
   6 add_executable(sample2 test.cc)
   7 target_link_libraries(sample2 hello)
+```
 
 
-4、编译时传入的宏，影响预编译阶段的 #if #else #endif ，链接阶段增加系统的dl ,list 命令
+## 4、编译时传入的宏，影响预编译阶段的 #if #else #endif ，链接阶段增加系统的dl ,list 命令
+  
+  ```cmake
   1 cmake_minimum_required(VERSION 2.8)
   2 project(SAMPLE2)
   3
@@ -51,8 +57,11 @@ build one bin
  15
  16 add_executable(sample2 test.cc)
  17 target_link_libraries(sample2 ${SAMPLE_BASE_LIBS})
+ ```
 
-5、单元测试管理，set变量、编译子目录、enable_testing()/add_test - make test
+## 5、单元测试管理，set变量、编译子目录、enable_testing()/add_test - make test
+
+```cmake
  1 cmake_minimum_required(VERSION 2.8)
   2 project(SAMPLE2)
   3
@@ -86,13 +95,14 @@ build one bin
  19 add_executable(hello_unittest hello_unittest.cc)
  20 target_link_libraries(hello_unittest ${TEST_LIBS} pthread)
  21 add_test(HELLO_UNITTEST hello_unittest --gtest_output=xml:TESTS-hello_unittest.xml)
+```
 
 
-
-6、一个目录独立编译so，一个目录编译so/bin 依赖其他目录了的so[目前测试会自动识别出编译顺序]
-* 		CMAKE_CURRENT_SOURCE_DIR 当前处理的CMakeLists.txt所在的路径
+## 6、一个目录独立编译so，一个目录编译so/bin 依赖其他目录了的so[目前测试会自动识别出编译顺序]
+*     	CMAKE_CURRENT_SOURCE_DIR 当前处理的CMakeLists.txt所在的路径
 * 		CMAKE_CURRENT_BINARY_DIR target编译目录
 
+```cmake
 ├── CMakeLists.txt
 ├── hello
 │   ├── CMakeLists.txt
@@ -116,10 +126,17 @@ build one bin
 1 add_executable(sample2 test.cc)
   2 target_link_libraries(sample2 hello)
 
+```
+
+
+##  待追加
+
+* find_xxxx   
+* add_dependencies 
+* add_custom_target  
+* configure_file
+* function(ADD_THIRDPARTY_LIB LIB_NAME)   
+* KRPC_GENERATE(实现Kudu Cmake extend plugin)
 
 
 
-待追加
-
-find_xxxx    add_dependencies  add_custom_target  configure_file
-function(ADD_THIRDPARTY_LIB LIB_NAME)   KRPC_GENERATE(实现Kudu Cmake extend plugin)
